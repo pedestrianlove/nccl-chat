@@ -4,6 +4,11 @@ channels:
   - defaults
 dependencies:
   - python=3.12
-  - langchain
+  - anaconda::beautifulsoup4
+  - langchain-community
+  - langchain-chroma
+  - langchain-text-splitters
   - gradio
-
+  - pip
+  - pip:
+    - langchain-ollama
