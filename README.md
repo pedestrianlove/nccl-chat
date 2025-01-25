@@ -2,15 +2,21 @@
 
 - Included installation/user guides.
 
-## 1. Scrape the docs and build ChromaDB.
+## 0. Setup the environment
 ```bash
 conda env create -f scrape_env.yaml
 conda activate scrape_env
 ```
 
-## 2. Spin up the chatbot.
-- TBD
+## 1. Scrape the docs and build ChromaDB.
+```bash
+sh scrape.sh
+```
 
+## 2. Spin up the chatbot.
+```bash
+python chat.py
+```
 
 ## References
 - https://tomstechacademy.com/build-a-chatbot-with-rag-retrieval-augmented-generation/
