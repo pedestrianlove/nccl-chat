@@ -66,11 +66,11 @@ def stream_response(message, history):
 
         """
 
-        # print(rag_prompt)
-
         # stream the response to the Gradio App
         for response in llm.stream(rag_prompt):
-            partial_message += response.content
+            partial_message += response.content.replace(
+                "<think>", "&lt;think&gt;"
+            ).replace("</think>", "&lt;/think&gt;")
             yield partial_message
 
 
@@ -87,4 +87,9 @@ chatbot = gr.ChatInterface(
 )
 
 # launch the Gradio app
-chatbot.launch(share=False, server_name="labtr.taila54574.ts.net")
+try:
+    chatbot.queue().launch(
+        share=False, server_name="labtr.taila54574.ts.net", debug=True
+    )
+except Exception as e:
+    print(e)
