@@ -20,6 +20,7 @@ embeddings_model = OllamaEmbeddings(
 llm = ChatOllama(
     base_url="http://cctu-scopelab.taila54574.ts.net:11434",
     model="deepseek-r1:32b-qwen-distill-q4_K_M",
+    temperature=0.5,
 )
 
 # connect to the chromadb
@@ -77,9 +78,13 @@ def stream_response(message, history):
 chatbot = gr.ChatInterface(
     stream_response,
     textbox=gr.Textbox(
-        placeholder="Send to the LLM...", container=False, autoscroll=True, scale=7
+        placeholder="Send to the LLM...",
+        container=False,
+        autoscroll=True,
+        scale=7,
     ),
+    analytics_enabled=False,
 )
 
 # launch the Gradio app
-chatbot.launch()
+chatbot.launch(share=False, server_name="labtr.taila54574.ts.net")
