@@ -31,7 +31,7 @@ vector_store = Chroma(
 )
 
 # Set up the vectorstore to be the retriever
-num_results = 5
+num_results = 10
 retriever = vector_store.as_retriever(search_kwargs={"k": num_results})
 
 
@@ -49,29 +49,9 @@ def stream_response(message, history):
         knowledge += doc.page_content + "\n\n"
 
     # make the call to the LLM (including prompt)
-    if message is not None:
-        partial_message = ""
-
-        rag_prompt = f"""
-        You are an assistent which answers questions based on knowledge which is provided to you.
-        While answering, you don't use your internal knowledge, 
-        but solely the information in the "The knowledge" section.
-        You don't mention anything to the user about the povided knowledge.
-
-        The question: {message}
-
-        Conversation history: {history}
-
-        The knowledge: {knowledge}
-
-        """
-
+    if knowledge is not None:
         # stream the response to the Gradio App
-        for response in llm.stream(rag_prompt):
-            partial_message += response.content.replace(
-                "<think>", "&lt;think&gt;"
-            ).replace("</think>", "&lt;/think&gt;")
-            yield partial_message
+        return knowledge
 
 
 # initiate the Gradio app
@@ -84,8 +64,6 @@ chatbot = gr.ChatInterface(
         scale=7,
     ),
     analytics_enabled=False,
-    type="messages",
-    save_history=True,
 )
 
 # launch the Gradio app

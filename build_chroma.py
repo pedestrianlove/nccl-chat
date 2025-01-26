@@ -27,9 +27,10 @@ vector_store = Chroma(
 )
 
 # loading the PDF document
-loader = ReadTheDocsLoader(DATA_PATH)
 
-raw_documents = loader.load()
+raw_documents = ReadTheDocsLoader(
+    DATA_PATH, encoding="utf-8", custom_html_tag=("article", {"id": "contents"})
+).load()
 
 # splitting the document
 text_splitter = RecursiveCharacterTextSplitter(
