@@ -5,9 +5,9 @@ from langchain_chroma import Chroma
 from uuid import uuid4
 
 # import the .env file
-from dotenv import load_dotenv
-
-load_dotenv()
+# from dotenv import load_dotenv
+#
+# load_dotenv()
 
 # configuration
 DATA_PATH = r"rtdocs"
@@ -42,9 +42,11 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 # creating the chunks
 chunks = text_splitter.split_documents(raw_documents)
+from itertools import batched
 
-# creating unique ID's
-uuids = [str(uuid4()) for _ in range(len(chunks))]
+for chunk in batched(chunks, 20):
+    # creating unique ID's
+    uuids = [str(uuid4()) for _ in range(len(chunk))]
 
-# adding chunks to vector store
-vector_store.add_documents(documents=chunks, ids=uuids)
+    # adding chunks to vector store
+    vector_store.add_documents(documents=chunk, ids=uuids)
