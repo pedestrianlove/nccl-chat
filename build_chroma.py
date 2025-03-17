@@ -15,7 +15,7 @@ CHROMA_PATH = r"chroma_db"
 
 # initiate the embeddings model
 embeddings_model = OllamaEmbeddings(
-    base_url="http://cctu-scopelab.taila54574.ts.net:11434",
+    base_url="http://192.168.1.12:11434",
     model="nomic-embed-text",
 )
 

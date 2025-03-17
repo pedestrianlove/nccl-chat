@@ -12,13 +12,13 @@ DATA_PATH = r"data"
 CHROMA_PATH = r"chroma_db"
 
 embeddings_model = OllamaEmbeddings(
-    base_url="http://cctu-scopelab.taila54574.ts.net:11434",
+    base_url="http://192.168.1.12:11434",
     model="nomic-embed-text",
 )
 
 # initiate the model
 llm = ChatOllama(
-    base_url="http://cctu-scopelab.taila54574.ts.net:11434",
+    base_url="http://192.168.1.12:11434",
     model="deepseek-r1:32b-qwen-distill-q4_K_M",
     temperature=0.5,
 )
